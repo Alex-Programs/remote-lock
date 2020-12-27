@@ -1,4 +1,5 @@
 from socket import *
+import time
 
 def main():
     host = "alexcj.co.uk"
@@ -28,4 +29,7 @@ def main():
             clientSocket.send(bytes("Acknowledged", "ascii"))
             print("Locking")
             os.system("loginctl lock-session")
+
+        #so if shit breaks it doesn't use too much CPU
+        time.sleep(1)
 main()
