@@ -23,11 +23,15 @@ def newConnectionListener(sock):
     print("Listening to new connections")
 
     while True:
-        connection, address = sock.accept()
+        try:
+            connection, address = sock.accept()
 
-        print("Accepted connection from " + str(address))
+            print("Accepted connection from " + str(address))
 
-        Thread(target=handleClient, args=(connection, address)).start()
+            Thread(target=handleClient, args=(connection, address)).start()
+        except:
+            print("Error in newConnectionListener")
+            continue
 
 
 def handleClient(connection, address):
@@ -46,10 +50,14 @@ def handleClient(connection, address):
         connection.close()
 
 def asyncSend(client=None):
-    client.send(bytes("LOCK IMMEDIATELY", "ascii"))
-    response = client.recv(_vars.bufferSize).decode("ascii")
-    if response == "Acknowledged":
-        _vars.gotResponse = True
+    try:
+        client.send(bytes("LOCK IMMEDIATELY", "ascii"))
+        response = client.recv(_vars.bufferSize).decode("ascii")
+        if response == "Acknowledged":
+            _vars.gotResponse = True
+    except:
+        print("Error in asyncSend")
+        pass
 
 def lock():
     _vars.gotResponse = False

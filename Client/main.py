@@ -1,7 +1,7 @@
 from socket import *
 
 def main():
-    host = "127.0.0.1"
+    host = "alexcj.co.uk"
     port = 42000
     BufferSize = 2048
     auth = "A"
@@ -26,5 +26,6 @@ def main():
         print("Received msg")
         if message == "LOCK IMMEDIATELY":
             clientSocket.send(bytes("Acknowledged", "ascii"))
-            print("I should lock now")
+            print("Locking")
+            os.system("loginctl lock-session")
 main()
