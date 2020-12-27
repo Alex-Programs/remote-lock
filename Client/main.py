@@ -1,5 +1,6 @@
 from socket import *
 import time
+import os
 
 def main():
     host = "alexcj.co.uk"
