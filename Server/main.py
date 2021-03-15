@@ -11,16 +11,20 @@ def checkLock():
     while v.shouldLock == False:
         time.sleep(0.1)
 
-    v.shouldLock = False
     return "True"
 
 @app.route("/setLock")
 def setLock():
     v.shouldLock = True
+
+    #jank
+    time.sleep(10)
+
+    v.shouldLock = False
     return ""
 
 @app.route("/")
 def index():
     return redirect("https://alexcj.co.uk")
     
-app.run(host="0.0.0.0", port=80)
+app.run(host="0.0.0.0", port=80, threaded=True)
