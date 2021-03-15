@@ -1,13 +1,25 @@
-import httpAPI
-import socketAPI
-from threading import *
-from _vars import _vars
+from flask import *
 
-def main():
-    _vars.httpAuthorisation = input("HTTP Authorisation Code: ")
-    _vars.socketAuthorisation = input("Server Authorisation Code: ")
-    Thread(target=socketAPI.run).start()
-    httpAPI.run()
+app = Flask(__name__)
 
-if __name__ == "__main__":
-    main()
+class v:
+    shouldLock = False
+
+@app.route("/shouldLock")
+def checkLock():
+    if v.shouldLock == True:
+        v.shouldLock = False
+        return "True"
+
+    return "False"
+
+@app.route("/setLock")
+def setLock():
+    v.shouldLock = True
+    return ""
+
+@app.route("/")
+def index():
+    return redirect("https://alexcj.co.uk")
+    
+app.run(host="0.0.0.0", port=42000)
