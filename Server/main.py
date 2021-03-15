@@ -22,4 +22,4 @@ def setLock():
 def index():
     return redirect("https://alexcj.co.uk")
     
-app.run(host="0.0.0.0", port=42000)
+app.run(host="0.0.0.0", port=80)

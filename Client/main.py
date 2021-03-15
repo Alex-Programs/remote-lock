@@ -2,7 +2,7 @@ import requests
 import os
 import time
 
-host = "http://localhost:42000"
+host = "http://localhost:80"
 
 def lock():
     os.system("loginctl lock-session")
