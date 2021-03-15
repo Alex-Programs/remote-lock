@@ -9,8 +9,12 @@ def lock():
 
 while True:
     time.sleep(2.5)
-    r = requests.get(host + "/shouldLock")
-    print(r.text)
-    if "True" == r.text:
+    try:
+        r = requests.get(host + "/shouldLock", timeout=60).text
+    except requests.exceptions.ReadTimeout:
+        r = ""
+        pass
+    print(r)
+    if "True" == r:
         print("Locking")
         lock()

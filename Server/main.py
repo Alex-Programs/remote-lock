@@ -1,4 +1,5 @@
 from flask import *
+import time
 
 app = Flask(__name__)
 
@@ -7,11 +8,11 @@ class v:
 
 @app.route("/shouldLock")
 def checkLock():
-    if v.shouldLock == True:
-        v.shouldLock = False
-        return "True"
+    while v.shouldLock == False:
+        time.sleep(0.1)
 
-    return "False"
+    v.shouldLock = False
+    return "True"
 
 @app.route("/setLock")
 def setLock():
